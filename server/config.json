@@ -1,7 +1,3 @@
 {
-    "port": 9000,
-    "bodyLimit": "100kb",
-    "corsHeaders": [
-        "Link"
-    ]
+    "port": 3001
 }
