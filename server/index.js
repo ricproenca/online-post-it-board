@@ -5,6 +5,7 @@ import initializeDb from "./db";
 import middleware from "./middleware";
 import config from "./config.json";
 import api from "./api";
+import ws from "./ws";
 
 let app = express();
 app.server = http.createServer(app);
@@ -42,10 +43,15 @@ initializeDb(db => {
 
   // start server
   const port = app.get("port");
-  app.listen(port, () => {
+  const server = app.listen(port, () => {
     // eslint-disable-line no-console
-    console.log(`Server api found at: http://localhost:${port}/api/`);
+    console.log(
+      `Online Post-It Board Server: API live on: http://localhost:${port}/api/`
+    );
   });
+
+  // start websocket server
+  ws(server);
 });
 
 export default app;

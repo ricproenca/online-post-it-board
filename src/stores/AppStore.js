@@ -7,24 +7,6 @@ import AppConstants from "../constants/AppConstants";
 let notes = [
   {
     id: "1",
-    title: "Learn Webpack",
-    visibleTitle: "Learn Webpack",
-    description: "Learn #webpack description Learn Webpack description Learn Webpack description Learn Webpack description Learn Webpack description Learn Webpack description Learn Webpack description Learn Webpack description Learn Webpack description Learn Webpack description Learn Webpack description Learn Webpack description",
-    visibleDescription: "Learn Webpack",
-    tags: ["#webpack"],
-    visible: true
-  },
-  {
-    id: "2",
-    title: "Learn React",
-    visibleTitle: "Learn React",
-    description: "Learn Webpack description Learn Webpack description Learn Webpack description Learn Webpack description Learn Webpack description Learn Webpack description Learn Webpack description Learn Webpack description Learn Webpack description Learn Webpack description Learn Webpack description Learn Webpack description ",
-    visibleDescription: "Learn Webpack",
-    tags: ["#react"],
-    visible: true
-  },
-  {
-    id: "3",
     title: "New task",
     visibleTitle: "New task",
     description: "New description",

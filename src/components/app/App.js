@@ -1,4 +1,5 @@
 import React from "react";
+import WebsocketProvider from "../../providers/websocketProvider";
 import AppStore from "../../stores/AppStore";
 
 import Navbar from "../navbar/Navbar";
@@ -13,7 +14,13 @@ let getAppState = () => {
 };
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.wsProvider = new WebsocketProvider();
+  }
+
   componentDidMount() {
+    this.wsProvider.startListen();
     AppStore.addChangeListener(this.onChange.bind(this));
   }
 
