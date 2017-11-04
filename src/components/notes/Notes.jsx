@@ -18,7 +18,11 @@ export default class Notes extends React.Component {
   renderNote(note) {
     return (
       <li className="note" key={`note-${note.id}`}>
-        <Note title={note.title} description={note.description} />
+        <Note
+          title={note.title}
+          description={note.description}
+          noteId={note.id}
+        />
       </li>
     );
   }

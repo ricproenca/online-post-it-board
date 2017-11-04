@@ -3,6 +3,7 @@ import AppConstants from "../constants/AppConstants";
 import AppStore from "../stores/AppStore";
 
 const newNote = {
+  id: 10,
   title: "New Note",
   description: "New Description",
   visible: true,
@@ -45,6 +46,17 @@ const AppActions = {
     Dispatcher.handleViewAction({
       actionType: AppConstants.APPLY_VISIBILITY_FILTER,
       tags
+    });
+  },
+
+  deleteNote(noteId) {
+    console.log("AppActions deleteNote");
+    let notes = AppStore.getNotes();
+    const newNotes = notes.filter(item => item.id !== noteId);
+
+    Dispatcher.handleViewAction({
+      actionType: AppConstants.NOTES_LOADED,
+      notes: newNotes
     });
   }
 };
