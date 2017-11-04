@@ -4,7 +4,9 @@ import AppStore from "../stores/AppStore";
 
 const newNote = {
   title: "New Note",
-  description: "New Description"
+  description: "New Description",
+  visible: true,
+  tags: []
 };
 
 const getTagsInText = text => {

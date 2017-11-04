@@ -88,8 +88,7 @@ Dispatcher.register(payload => {
   console.log(`AppStore dispatch action: ${action.actionType}`);
   switch (action.actionType) {
     case AppConstants.NOTES_LOADED:
-      debugger;
-      this.notes = notes;
+      Object.assign(notes, action.notes);
       break;
 
     case AppConstants.APPLY_VISIBILITY_FILTER:
