@@ -5,38 +5,33 @@ import Navbar from "../navbar/Navbar";
 import NoteList from "../notes/Notes";
 
 // Method to retrieve state from Stores
-let getListState = () => {
+let getAppState = () => {
   return {
-    items: AppStore.getNotes()
+    notes: AppStore.getNotes(),
+    notifications: []
   };
 };
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
+  componentDidMount() {
+    AppStore.addChangeListener(this.onChange.bind(this));
+  }
 
-    this.state = getListState();
+  componentWillUnmount() {
+    AppStore.removeChangeListener(this.onChange.bind(this));
+  }
 
-    this.addNote = this.addNote.bind(this);
-    this.filterNotes = this.filterNotes.bind(this);
+  onChange() {
+    this.setState(getAppState());
   }
 
   render() {
-    let items = AppStore.getNotes();
-
+    const notes = getAppState().notes;
     return (
       <div>
-        <Navbar onAdd={this.addNote} onSearch={this.filterNotes} />
-        <NoteList notes={items} />
+        <Navbar />
+        <NoteList notes={notes} />
       </div>
     );
-  }
-
-  addNote() {
-    console.log("## ADD NOTE");
-  }
-
-  filterNotes(text) {
-    console.log("## FILTER NOTES");
   }
 }

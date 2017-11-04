@@ -1,15 +1,18 @@
 import React from "react";
 
-export default class Notes extends React.Component {
+import AppActions from "../../actions/AppActions";
+
+export default class Navbar extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      inputValue: ""
+      searchText: ""
     };
 
-    this.updateInputValue = this.updateInputValue.bind(this);
-    this.finishAdd = this.finishAdd.bind(this);
+    this.addNote = this.addNote.bind(this);
+
+    this.updatesearchText = this.updatesearchText.bind(this);
     this.finishEdit = this.finishEdit.bind(this);
     this.checkEnter = this.checkEnter.bind(this);
   }
@@ -19,7 +22,7 @@ export default class Notes extends React.Component {
       <div className="navbar">
         <p className="tags">
           <span className="add-note-input">
-            <button type="submit" value="Add Note" onClick={this.finishAdd}>
+            <button type="submit" value="Add Note" onClick={this.addNote}>
               Add Note
             </button>
           </span>
@@ -30,8 +33,8 @@ export default class Notes extends React.Component {
               size="32"
               maxLength="120"
               required="required"
-              value={this.state.inputValue}
-              onChange={this.updateInputValue}
+              value={this.state.searchText}
+              onChange={this.updatesearchText}
               onKeyPress={this.checkEnter}
               placeholder="Place #tags here"
             />
@@ -44,8 +47,13 @@ export default class Notes extends React.Component {
     );
   }
 
-  updateInputValue(e) {
-    this.setState({ inputValue: e.target.value });
+  addNote() {
+    console.log("Navbar addNote");
+    AppActions.addNote();
+  }
+
+  updatesearchText(e) {
+    this.setState({ searchText: e.target.value });
     this.checkEnter(e);
   }
 
@@ -56,13 +64,8 @@ export default class Notes extends React.Component {
     }
   }
 
-  finishAdd() {
-    // Callback to add note
-    this.props.onAdd();
-  }
-
   finishEdit() {
     // Pass text to parent
-    this.props.onSearch(this.state.inputValue);
+    this.props.onSearch(this.state.searchText);
   }
 }

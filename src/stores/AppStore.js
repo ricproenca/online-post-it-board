@@ -2,7 +2,7 @@ import { EventEmitter } from "events";
 import assign from "object-assign";
 
 import Dispatcher from "../dispatcher/AppDispatcher";
-import Constants from "../constants/AppConstants";
+import AppConstants from "../constants/AppConstants";
 
 let notes = [
   {
@@ -36,37 +36,23 @@ let notes = [
 
 const AppStore = assign({}, EventEmitter.prototype, {
   getNotes() {
-    console.log("getNotes");
+    console.log("AppStore getNotes");
     return notes;
-  },
-
-  addNote() {
-    console.log("AppStore addNote");
-  },
-
-  editNote() {
-    console.log("AppStore editNote");
-  },
-
-  deleteNotes() {
-    console.log("AppStore deleteNotes");
-  },
-
-  filterNotes() {
-    console.log("AppStore filterNotes");
   },
 
   emitChange() {
     console.log("AppStore emitChange");
-    this.emit(Constants.CHANGE_EVENT);
+    this.emit(AppConstants.CHANGE_EVENT);
   },
+
   addChangeListener(callback) {
     console.log("AppStore addChangeListener");
-    this.on(Constants.CHANGE_EVENT, callback);
+    this.on(AppConstants.CHANGE_EVENT, callback);
   },
+
   removeChangeListener(callback) {
     console.log("AppStore removeChangeListener");
-    this.removeListener(Constants.CHANGE_EVENT, callback);
+    this.removeListener(AppConstants.CHANGE_EVENT, callback);
   }
 });
 
@@ -74,14 +60,15 @@ Dispatcher.register(payload => {
   const action = payload.action;
   console.log(`AppStore dispatch action: ${action.actionType}`);
   switch (action.actionType) {
-    case Constants.LOAD_NOTES:
+    case AppConstants.NOTES_LOADED:
+      this.notes = notes;
       break;
 
     default:
       console.error(`Error: Action ${action.actionType} unknown.`);
       break;
   }
-  AppStore.emitChange(Constants.CHANGE_EVENT);
+  AppStore.emitChange(AppConstants.CHANGE_EVENT);
   return true;
 });
 
