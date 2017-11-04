@@ -1,5 +1,4 @@
 import React from "react";
-import "./Navbar.css";
 
 export default class Notes extends React.Component {
   constructor(props) {

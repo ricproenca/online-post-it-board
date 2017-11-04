@@ -1,5 +1,5 @@
 import React from "react";
-import NoteStore from "../../stores/NoteStore";
+import AppStore from "../../stores/AppStore";
 
 import Navbar from "../navbar/Navbar";
 import NoteList from "../notes/Notes";
@@ -7,7 +7,7 @@ import NoteList from "../notes/Notes";
 // Method to retrieve state from Stores
 let getListState = () => {
   return {
-    items: NoteStore.getItems()
+    items: AppStore.getNotes()
   };
 };
 
@@ -22,7 +22,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    let items = NoteStore.getItems();
+    let items = AppStore.getNotes();
 
     return (
       <div>

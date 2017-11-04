@@ -1,4 +1,5 @@
 import React from "react";
+
 import Note from "../note/Note";
 
 export default class Notes extends React.Component {
@@ -9,7 +10,9 @@ export default class Notes extends React.Component {
 
   render() {
     const notes = this.props.notes;
-    return <ul className="notes">{notes.map(this.renderNote)}</ul>;
+    return (
+      <ul className="notes">{notes ? notes.map(this.renderNote) : null}</ul>
+    );
   }
 
   renderNote(note) {

@@ -1,0 +1,4 @@
+export default {
+  CHANGE_EVENT: "CHANGE_EVENT",
+  LOAD_NOTES: "LOAD_NOTES"
+};

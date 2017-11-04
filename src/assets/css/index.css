@@ -1,0 +1,294 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: arial, sans-serif;
+    font-size: 100%;
+    margin: 3em;
+    background: #666;
+    color: #fff;
+}
+
+*:focus {
+    outline: 0 !important;
+}
+
+ul {
+    overflow: hidden;
+    padding-top: 3em;
+    padding-bottom: 3em;
+    padding-left: 3em;
+    width: 98%;
+}
+
+ul,
+li {
+    list-style: none;
+    float: left;
+    margin: 1em;
+}
+
+ul li .note-inner {
+    text-decoration: none;
+    color: #000;
+    background: #ffc;
+    display: block;
+    height: 240px;
+    width: 220px;
+    padding: 1em;
+    -moz-box-shadow: 5px 5px 7px rgba(33, 33, 33, 1);
+    -webkit-box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.7);
+    box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.7);
+    transition: transform 0.15s linear;
+    -moz-transition: -moz-transform 0.15s linear;
+    -o-transition: -o-transform 0.15s linear;
+    -webkit-transition: -webkit-transform 0.15s linear;
+}
+
+ul li h2 {
+    font-size: 90%;
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    padding-bottom: 10px;
+    text-align: center;
+    word-wrap: break-word;
+    line-height: 20px;
+}
+
+ul li p {
+    font-family: "Roboto", sans-serif;
+    font-size: 90%;
+    /* text-align: justify; */
+    word-wrap: break-word;
+    line-height: 20px;
+}
+
+ul li .note-inner {
+    -webkit-transform: rotate(-6deg);
+    -o-transform: rotate(-6deg);
+    -moz-transform: rotate(-6deg);
+}
+
+ul li .note-inner .editingTitle {
+    font-size: 80%;
+}
+
+ul li .note-inner .editingDescription {
+    font-size: 80%;
+}
+
+ul li .note-inner .add {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding-right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 220%;
+    color: grey;
+    cursor: pointer;
+}
+
+ul li .note-inner .delete {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 200%;
+    color: red;
+    cursor: pointer;
+    visibility: hidden;
+}
+
+ul li .note-inner:hover .delete {
+    visibility: visible;
+}
+
+ul li:nth-child(even) .note-inner {
+    -o-transform: rotate(4deg);
+    -webkit-transform: rotate(4deg);
+    -moz-transform: rotate(4deg);
+    position: relative;
+    top: 5px;
+    background: #cfc;
+}
+
+ul li:nth-child(3n) .note-inner {
+    -o-transform: rotate(-3deg);
+    -webkit-transform: rotate(-3deg);
+    -moz-transform: rotate(-3deg);
+    position: relative;
+    top: -5px;
+    background: #ccf;
+}
+
+ul li:nth-child(5n) .note-inner {
+    -o-transform: rotate(5deg);
+    -webkit-transform: rotate(5deg);
+    -moz-transform: rotate(5deg);
+    position: relative;
+    top: -10px;
+}
+
+ul li .note-inner:hover,
+ul li .note-inner:focus {
+    box-shadow: 10px 10px 7px rgba(0, 0, 0, 0.7);
+    -moz-box-shadow: 10px 10px 7px rgba(0, 0, 0, 0.7);
+    -webkit-box-shadow: 10px 10px 7px rgba(0, 0, 0, 0.7);
+    -webkit-transform: scale(1.3);
+    -moz-transform: scale(1.3);
+    -o-transform: scale(1.3);
+    position: relative;
+    z-index: 5;
+}
+
+.navbar {
+    font-family: "Roboto", sans-serif;
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+}
+
+.navbar .tags {
+    margin-top: 3px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.navbar .tags-input {
+    float: right;
+    display: block;
+}
+
+.tags-input button {
+    margin-left: 5px;
+    margin-right: 1px;
+}
+
+.tags button {
+    display: inline-block;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    cursor: pointer;
+    border: 1px solid #018dc4;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    color: rgba(255, 255, 255, 0.9);
+    -o-text-overflow: clip;
+    text-overflow: clip;
+    background: #0199d9;
+    -webkit-box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2);
+    text-shadow: -1px -1px 0 rgba(15, 73, 168, 0.66);
+    -webkit-transition: all 300ms cubic-bezier(0.42, 0, 0.58, 1);
+    -moz-transition: all 300ms cubic-bezier(0.42, 0, 0.58, 1);
+    -o-transition: all 300ms cubic-bezier(0.42, 0, 0.58, 1);
+    transition: all 300ms cubic-bezier(0.42, 0, 0.58, 1);
+    height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-transform: uppercase;
+}
+
+.tags button:hover {
+    border: 1px solid #007cad;
+    background: rgba(0, 142, 198, 1);
+    -webkit-box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.3);
+    -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    text-transform: uppercase;
+}
+
+.tags button:active {
+    border: 1px solid #018dc4;
+    background: #00a6e8;
+    -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2) inset;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2) inset;
+    text-shadow: none;
+    -webkit-transition: all 50ms cubic-bezier(0.42, 0, 0.58, 1);
+    -moz-transition: all 50ms cubic-bezier(0.42, 0, 0.58, 1);
+    -o-transition: all 50ms cubic-bezier(0.42, 0, 0.58, 1);
+    transition: all 50ms cubic-bezier(0.42, 0, 0.58, 1);
+    text-transform: uppercase;
+}
+
+.tags input[type="text"] {
+    display: inline-block;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    border: 1px solid #b7b7b7;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -o-text-overflow: clip;
+    text-overflow: clip;
+    background: rgba(252, 252, 252, 1);
+    -webkit-box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2) inset;
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2) inset;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.66);
+    -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.note-inner input[type="text"] {
+    display: inline-block;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    border: 1px solid #b7b7b7;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -o-text-overflow: clip;
+    text-overflow: clip;
+    background: rgba(252, 252, 252, 1);
+    -webkit-box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2) inset;
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2) inset;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.66);
+    -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    height: 30px;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.note-inner textarea {
+    display: inline-block;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    border: 1px solid #b7b7b7;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -o-text-overflow: clip;
+    text-overflow: clip;
+    background: rgba(252, 252, 252, 1);
+    -webkit-box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2) inset;
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2) inset;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.66);
+    -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    padding-left: 2px;
+    padding-right: 2px;
+}
