@@ -50,13 +50,33 @@ const AppActions = {
   },
 
   deleteNote(noteId) {
-    console.log("AppActions deleteNote");
+    console.log("AppActions deleteNote", noteId);
     let notes = AppStore.getNotes();
     const newNotes = notes.filter(item => item.id !== noteId);
 
     Dispatcher.handleViewAction({
       actionType: AppConstants.NOTES_LOADED,
       notes: newNotes
+    });
+  },
+
+  editNote(noteId, noteTitle, noteDescription) {
+    console.log("AppActions editNote", noteId, noteTitle, noteDescription);
+    const notes = AppStore.getNotes();
+
+    const notesFiltered = notes.filter(item => item.id === noteId);
+    if (notesFiltered.length > 1) {
+      console.error(`Found duplicate IDs`);
+      return;
+    }
+
+    const note = notesFiltered[0];
+    note.title = noteTitle;
+    note.description = noteDescription;
+
+    Dispatcher.handleViewAction({
+      actionType: AppConstants.NOTES_LOADED,
+      notes: notes
     });
   }
 };

@@ -18,10 +18,10 @@ body {
 
 ul {
     overflow: hidden;
-    padding-top: 3em;
+    padding-top: 5em;
     padding-bottom: 5em;
     padding-left: 3em;
-    width: 98%;
+    width: 100%;
 }
 
 ul,
@@ -36,8 +36,8 @@ ul li .note-inner {
     color: #000;
     background: #ffc;
     display: block;
-    height: 240px;
-    width: 220px;
+    height: 260px;
+    width: 260px;
     padding: 1em;
     -moz-box-shadow: 5px 5px 7px rgba(33, 33, 33, 1);
     -webkit-box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.7);
@@ -140,11 +140,18 @@ ul li .note-inner:focus {
     box-shadow: 10px 10px 7px rgba(0, 0, 0, 0.7);
     -moz-box-shadow: 10px 10px 7px rgba(0, 0, 0, 0.7);
     -webkit-box-shadow: 10px 10px 7px rgba(0, 0, 0, 0.7);
-    -webkit-transform: scale(1.5);
-    -moz-transform: scale(1.5);
-    -o-transform: scale(1.5);
+    -webkit-transform: scale(1.6);
+    -moz-transform: scale(1.6);
+    -o-transform: scale(1.6);
     position: relative;
     z-index: 5;
+    padding: 1em;
+}
+
+ul li .note-inner:hover p,
+ul li .note-inner:focus p {
+    padding: 0.8em;
+    font-size: 84%;
 }
 
 .navbar {
