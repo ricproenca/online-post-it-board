@@ -34,10 +34,36 @@ let notes = [
   }
 ];
 
+const setVisibilityFilterToNotes = tags => {
+  let newNotes = assign([], notes);
+  if (tags.length) {
+    // Iterate all tags and notes
+    tags.map((tag, tagIndex) => {
+      return newNotes.map((note, noteIndex) => {
+        // Set visible option if #tag is found
+        if (note.tags.indexOf(tag) === -1) {
+          note.visible = false;
+        } else {
+          note.visible = true;
+        }
+        return note;
+      });
+    });
+  } else {
+    newNotes.map((note, noteIndex) => {
+      note.visible = true;
+      return note;
+    });
+  }
+  return newNotes;
+};
+
 const AppStore = assign({}, EventEmitter.prototype, {
   getNotes() {
     console.log("AppStore getNotes");
-    return notes;
+    return notes.filter(note => {
+      return note.visible;
+    });
   },
 
   emitChange() {
@@ -56,12 +82,19 @@ const AppStore = assign({}, EventEmitter.prototype, {
   }
 });
 
+// TODO: missing validations (if paylod is correct)
 Dispatcher.register(payload => {
   const action = payload.action;
   console.log(`AppStore dispatch action: ${action.actionType}`);
   switch (action.actionType) {
     case AppConstants.NOTES_LOADED:
+      debugger;
       this.notes = notes;
+      break;
+
+    case AppConstants.APPLY_VISIBILITY_FILTER:
+      const notesFiltered = setVisibilityFilterToNotes(action.tags);
+      Object.assign(notes, notesFiltered);
       break;
 
     default:
