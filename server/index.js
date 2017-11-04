@@ -12,7 +12,7 @@ app.server = http.createServer(app);
 app.set("port", process.env.PORT || config.port);
 
 // Configure the API to use bodyParser and look for JSON data in the request body
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Set our headers to allow CORS with middleware to prevent errors
