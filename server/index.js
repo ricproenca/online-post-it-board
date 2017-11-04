@@ -6,17 +6,9 @@ import initializeDb from "./db";
 import middleware from "./middleware";
 import api from "./api";
 import config from "./config.json";
-import { webpackDevHelper } from "./index.dev.js";
 
 let app = express();
 app.server = http.createServer(app);
-
-if (process.env.NODE_ENV !== "production") {
-  console.log("DEVELOPMENT ENVIRONMENT: Turning on WebPack Middleware...");
-  webpackDevHelper.useWebpackMiddleware(app);
-} else {
-  console.log("PRODUCTION ENVIRONMENT");
-}
 
 app.set("port", process.env.PORT || 3001);
 
