@@ -1,20 +1,20 @@
 import SocketServer from "ws";
 
-export default server => {
+export default (server, port) => {
   // broadcast message to all clientes
   const wss = new SocketServer.Server({ server });
 
-  wss.on("connection", ws => {
-    console.log(
-      `Online Post-It Board Server: WS connection on: http://localhost:3001`
-    );
+  console.log(`WS live on: http://localhost:${port}`);
+
+  wss.on("connection", (ws, req) => {
+    console.log(`WS connection from: ${req.connection.remoteAddress}`);
   });
 
   wss.broadcast = notes => {
     // wss.clients = connected clients
     wss.clients.forEach(client => {
       client.send(JSON.stringify(notes));
-      console.log("Broadcast all notes to clients");
+      console.log("WS broadcast to all clients...");
     });
   };
 };

@@ -33,6 +33,8 @@ app.use((req, res, next) => {
   next();
 });
 
+console.log("### Online Post-It Board Server ###");
+
 // connect to db
 initializeDb(db => {
   // internal middleware
@@ -45,13 +47,11 @@ initializeDb(db => {
   const port = app.get("port");
   const server = app.listen(port, () => {
     // eslint-disable-line no-console
-    console.log(
-      `Online Post-It Board Server: API live on: http://localhost:${port}/api/`
-    );
+    console.log(`API live on: http://localhost:${port}/api/`);
   });
 
   // start websocket server
-  ws(server);
+  ws(server, port);
 });
 
 export default app;
