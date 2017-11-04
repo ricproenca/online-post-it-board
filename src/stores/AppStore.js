@@ -4,17 +4,7 @@ import assign from "object-assign";
 import Dispatcher from "../dispatcher/AppDispatcher";
 import AppConstants from "../constants/AppConstants";
 
-let notes = [
-  {
-    id: "1",
-    title: "New task",
-    visibleTitle: "New task",
-    description: "New description",
-    visibleDescription: "New description",
-    tags: [],
-    visible: true
-  }
-];
+let notes = [];
 
 const setVisibilityFilterToNotes = tags => {
   let newNotes = assign([], notes);

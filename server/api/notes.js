@@ -1,7 +1,6 @@
 import resource from "resource-router-middleware";
-import notes from "../models/notes";
 
-export default ({ config, db }) =>
+export default (notes, db, broadcast) =>
   resource({
     /** Property name to store preloaded entity on `request`. */
     id: "note",
@@ -10,7 +9,7 @@ export default ({ config, db }) =>
 	 *  Errors terminate the request, success sets `req[id] = data`.
 	 */
     load(req, id, callback) {
-      console.log("load notes");
+      console.log("API request load");
       let note = notes.find(note => note.id === id),
         err = note ? null : "Not found";
       callback(err, note);
@@ -18,13 +17,13 @@ export default ({ config, db }) =>
 
     /** GET / - List all entities */
     index({ params }, res) {
-      console.log("index notes");
+      console.log("API request list all");
       res.json(notes);
     },
 
     /** POST / - Create a new entity */
     create({ body }, res) {
-      console.log("create notes");
+      console.log("API request create");
       body.id = notes.length.toString(36);
       notes.push(body);
       res.json(body);
@@ -32,13 +31,13 @@ export default ({ config, db }) =>
 
     /** GET /:id - Return a given entity */
     read({ note }, res) {
-      console.log("read notes");
+      console.log("API request read");
       res.json(note);
     },
 
     /** PUT /:id - Update a given entity */
     update({ note, body }, res) {
-      console.log("update notes");
+      console.log("API request update");
       for (let key in body) {
         if (key !== "id") {
           note[key] = body[key];
@@ -49,7 +48,7 @@ export default ({ config, db }) =>
 
     /** DELETE /:id - Delete a given entity */
     delete({ note }, res) {
-      console.log("delete notes");
+      console.log("API request delete");
       notes.splice(notes.indexOf(note), 1);
       res.sendStatus(204);
     }

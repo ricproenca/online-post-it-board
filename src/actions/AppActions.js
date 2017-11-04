@@ -27,6 +27,14 @@ const getTagsInText = text => {
 
 // TODO: When the backend is ready, please change the actions
 const AppActions = {
+  loadNotes(notes) {
+    console.log("AppActions addNote");
+    Dispatcher.handleViewAction({
+      actionType: AppConstants.NOTES_LOADED,
+      notes
+    });
+  },
+
   addNote() {
     console.log("AppActions addNote");
     let notes = AppStore.getNotes();

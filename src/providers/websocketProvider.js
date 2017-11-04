@@ -1,21 +1,24 @@
-// import AppActions from "../actions/AppActions";
-const wsUrl = "ws://localhost:3001";
+import config from "../config";
+import AppActions from "../actions/AppActions";
 
 const onOpen = evt => {
-  console.log("websocket opened!");
+  console.log("Provider WebSocket opened!");
 };
 
 const onMessage = evt => {
-  console.log("websocket message arrived!");
+  console.log("Provider WebSocket message!", evt.data);
+  AppActions.loadNotes(JSON.parse(evt.data));
 };
 
 const onError = evt => {
-  console.log(`websocket error: ${JSON.stringify(evt.currentTarget.url)}`);
+  console.log(
+    `Provider WebSocket error: ${JSON.stringify(evt.currentTarget.url)}`
+  );
 };
 
-export default class ApiProvider {
+export default class WebSocketProvider {
   constructor() {
-    this.websocket = new WebSocket(wsUrl, "echo-protocol");
+    this.websocket = new WebSocket(config.wsUrl, "echo-protocol");
   }
   startListen() {
     this.websocket.onopen = onOpen;
