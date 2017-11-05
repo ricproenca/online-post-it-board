@@ -10,9 +10,7 @@ const statusEdit = 204;
 
 const newNote = {
   title: "New Note",
-  description: "New Description",
-  visible: true,
-  tags: []
+  description: "New Description"
 };
 
 const getTagsInText = text => {

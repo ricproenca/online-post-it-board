@@ -79,22 +79,20 @@ export default (notes, db, broadcast) =>
     update({ note, body }, res) {
       console.log(`API request update ${note.id}`);
 
-      // TODO: if sent incorrect id
-
       if (!validateNote(body)) {
         res.sendStatus(400);
         return;
       }
+
+      body.tags = []
+        .concat(getTagsInText(body.title))
+        .concat(getTagsInText(body.description));
 
       for (let key in body) {
         if (key !== "id") {
           note[key] = body[key];
         }
       }
-
-      body.tags = []
-        .concat(getTagsInText(body.title))
-        .concat(getTagsInText(body.description));
 
       res.sendStatus(204);
       broadcast(notes);

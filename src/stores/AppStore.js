@@ -4,37 +4,30 @@ import assign from "object-assign";
 import Dispatcher from "../dispatcher/AppDispatcher";
 import AppConstants from "../constants/AppConstants";
 
-let notes = [];
+let store = {
+  notes: [],
+  filter: []
+};
 
-const setVisibilityFilterToNotes = (newNotes, tags) => {
+const getFilteredNotes = (notes, tags) => {
   if (tags.length) {
-    // Iterate all tags and notes
-    tags.map((tag, tagIndex) => {
-      return newNotes.map((note, noteIndex) => {
-        // Set visible option if #tag is found
-        if (note.tags.indexOf(tag) === -1) {
-          note.visible = false;
-        } else {
-          note.visible = true;
+    return notes.filter(note => {
+      for (var i = 0; i < note.tags.length; i++) {
+        if (tags.indexOf(note.tags[i]) > -1) {
+          return true;
         }
-        return note;
-      });
-    });
-  } else {
-    newNotes.map((note, noteIndex) => {
-      note.visible = true;
-      return note;
+        return false;
+      }
     });
   }
-  return newNotes;
+  return notes;
 };
 
 const AppStore = assign({}, EventEmitter.prototype, {
   getNotes() {
     console.log("AppStore getNotes");
-    return notes.filter(note => {
-      return note.visible;
-    });
+    const notes = getFilteredNotes(assign([], store.notes), store.filter);
+    return notes;
   },
 
   emitChange() {
@@ -59,12 +52,11 @@ Dispatcher.register(payload => {
   console.log(`AppStore dispatch action: ${action.actionType}`);
   switch (action.actionType) {
     case AppConstants.NOTES_LOADED:
-      notes = assign([], action.notes);
+      store.notes = assign([], action.notes);
       break;
 
     case AppConstants.APPLY_VISIBILITY_FILTER:
-      const newNotes = assign([], notes);
-      notes = setVisibilityFilterToNotes(newNotes, action.tags);
+      store.filter = assign([], action.tags);
       break;
 
     default:
