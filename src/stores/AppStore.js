@@ -62,7 +62,7 @@ const AppStore = assign({}, EventEmitter.prototype, {
 // TODO: missing validations (if paylod is correct)
 Dispatcher.register(payload => {
   const action = payload.action;
-  console.log(`AppStore dispatch action: ${action}`);
+  console.log(`AppStore dispatch action: ${JSON.stringify(action)}`);
   switch (action.actionType) {
     case AppConstants.NOTES_LOADED:
       store.notes = assign([], action.notes);
