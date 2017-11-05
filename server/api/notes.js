@@ -10,7 +10,6 @@ export default (notes, db, broadcast) =>
 	 *  Errors terminate the request, success sets `req[id] = data`.
 	 */
     load(req, id, callback) {
-      console.log("API request load");
       let note = notes.find(note => note.id === id),
         err = note ? null : "Not found";
       callback(err, note);

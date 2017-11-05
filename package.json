@@ -6,6 +6,7 @@
     "axios": "^0.17.0",
     "dateformat": "^3.0.2",
     "express": "^4.16.2",
+    "nsp": "^2.8.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-scripts": "1.0.16",
@@ -14,8 +15,10 @@
     "ws": "^3.3.0"
   },
   "scripts": {
+    "nspcheck": "nsp check",
     "start:server": "nodemon -w server --exec \"babel-node server --presets es2015\"",
     "start:client": "react-scripts start",
+    "prestart": "npm run nspcheck",
     "start": "concurrently \"npm run start:server\" \"npm run start:client\"",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
