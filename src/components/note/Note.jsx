@@ -1,4 +1,5 @@
 import React from "react";
+import ReactMarkdown from "react-markdown";
 
 import AppActions from "../../actions/AppActions";
 
@@ -36,8 +37,12 @@ export default class Note extends React.Component {
         <button className="delete" onClick={this.deleteNote.bind(this)}>
           x
         </button>
-        <h2 onClick={this.editTitle}>{this.props.title}</h2>
-        <p onClick={this.editDescription}>{this.props.description}</p>
+        <div className="note-inner-title" onClick={this.editTitle}>
+          <ReactMarkdown source={this.props.title} />
+        </div>
+        <div className="note-inner-description" onClick={this.editDescription}>
+          <ReactMarkdown source={this.props.description} />
+        </div>
         <button className="add" onClick={this.addNote}>+</button>
       </div>
     );
@@ -56,9 +61,10 @@ export default class Note extends React.Component {
           maxLength="120"
           required="required"
           onBlur={this.editNote}
-          onKeyPress={this.checkEnter}
         />
-        <p onClick={this.editDescription}>{this.props.description}</p>
+        <div className="note-inner-description" onClick={this.editDescription}>
+          <ReactMarkdown source={this.props.description} />
+        </div>
       </div>
     );
   }
@@ -66,11 +72,13 @@ export default class Note extends React.Component {
   renderEditDescription(className, prop) {
     return (
       <div className="note-inner">
-        <h2 onClick={this.editTitle}>{this.props.title}</h2>
+        <div className="note-inner-title" onClick={this.editTitle}>
+          <ReactMarkdown source={this.props.title} />
+        </div>
         <textarea
           ref="editDescriptionInput"
           rows="15"
-          cols="33"
+          cols="38"
           className={className}
           type="text"
           autoFocus={true}
@@ -78,7 +86,6 @@ export default class Note extends React.Component {
           maxLength="1000"
           required="required"
           onBlur={this.editNote}
-          onKeyPress={this.checkEnter}
         />
       </div>
     );

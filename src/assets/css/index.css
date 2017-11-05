@@ -7,7 +7,6 @@
 body {
     font-family: arial, sans-serif;
     font-size: 100%;
-    margin: 3em;
     background: #666;
     color: #fff;
 }
@@ -18,10 +17,11 @@ body {
 
 ul {
     overflow: hidden;
-    padding-top: 5em;
-    padding-bottom: 5em;
-    padding-left: 3em;
-    width: 100%;
+    padding-top: 10em;
+    padding-bottom: 10em;
+    padding-left: 5em;
+    padding-right: 5em;
+    width: 88%;
 }
 
 ul,
@@ -36,9 +36,10 @@ ul li .note-inner {
     color: #000;
     background: #ffc;
     display: block;
-    height: 260px;
+    min-height: 260px;
     width: 260px;
     padding: 1em;
+    margin: 1em;
     -moz-box-shadow: 5px 5px 7px rgba(33, 33, 33, 1);
     -webkit-box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.7);
     box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.7);
@@ -48,22 +49,23 @@ ul li .note-inner {
     -webkit-transition: -webkit-transform 0.15s linear;
 }
 
-ul li h2 {
-    font-size: 90%;
+ul li .note-inner-title {
+    font-size: 80%;
     font-family: "Roboto", sans-serif;
     font-weight: bold;
-    padding-bottom: 10px;
     text-align: center;
     word-wrap: break-word;
-    line-height: 20px;
+    line-height: 24px;
+    border-bottom: 1px solid #A9A9A9;
 }
 
-ul li p {
+ul li .note-inner-description {
     font-family: "Roboto", sans-serif;
-    font-size: 90%;
-    /* text-align: justify; */
+    font-size: 60%;
     word-wrap: break-word;
-    line-height: 20px;
+    line-height: 18px;
+    padding-left: 0.12em;
+    padding-top: 1em;
 }
 
 ul li .note-inner {
@@ -73,11 +75,13 @@ ul li .note-inner {
 }
 
 ul li .note-inner .editingTitle {
-    font-size: 80%;
+    font-size: 60%;
+    margin-left: 20px;
 }
 
 ul li .note-inner .editingDescription {
-    font-size: 80%;
+    font-size: 60%;
+    margin-left: 20px;
 }
 
 ul li .note-inner .add {
@@ -133,6 +137,7 @@ ul li:nth-child(5n) .note-inner {
     -moz-transform: rotate(5deg);
     position: relative;
     top: -10px;
+    background: #ffcccc;
 }
 
 ul li .note-inner:hover,
@@ -140,18 +145,11 @@ ul li .note-inner:focus {
     box-shadow: 10px 10px 7px rgba(0, 0, 0, 0.7);
     -moz-box-shadow: 10px 10px 7px rgba(0, 0, 0, 0.7);
     -webkit-box-shadow: 10px 10px 7px rgba(0, 0, 0, 0.7);
-    -webkit-transform: scale(1.6);
-    -moz-transform: scale(1.6);
-    -o-transform: scale(1.6);
+    -webkit-transform: scale(1.4);
+    -moz-transform: scale(1.4);
+    -o-transform: scale(1.4);
     position: relative;
     z-index: 5;
-    padding: 1em;
-}
-
-ul li .note-inner:hover p,
-ul li .note-inner:focus p {
-    padding: 0.8em;
-    font-size: 84%;
 }
 
 .navbar {
@@ -296,6 +294,5 @@ ul li .note-inner:focus p {
     -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
     -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
     transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
-    padding-left: 2px;
-    padding-right: 2px;
+    margin-left: 10px;
 }
