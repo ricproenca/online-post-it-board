@@ -7,6 +7,7 @@
     "cors": "^2.8.4",
     "dateformat": "^3.0.2",
     "express": "^4.16.2",
+    "express-rate-limit": "^2.9.0",
     "helmet": "^3.9.0",
     "nsp": "^2.8.1",
     "react": "^16.0.0",
