@@ -25,10 +25,22 @@ const getFilteredNotes = (notes, tags) => {
 };
 
 const AppStore = assign({}, EventEmitter.prototype, {
+  getState() {
+    return {
+      notes: this.getNotes(),
+      filter: this.getFilter()
+    };
+  },
+
   getNotes() {
     console.log("AppStore getNotes");
     const notes = getFilteredNotes(assign([], store.notes), store.filter);
     return notes;
+  },
+
+  getFilter() {
+    console.log("AppStore getFilter");
+    return store.filter.join(" ");
   },
 
   emitChange() {
@@ -50,7 +62,7 @@ const AppStore = assign({}, EventEmitter.prototype, {
 // TODO: missing validations (if paylod is correct)
 Dispatcher.register(payload => {
   const action = payload.action;
-  console.log(`AppStore dispatch action: ${action.actionType}`);
+  console.log(`AppStore dispatch action: ${action}`);
   switch (action.actionType) {
     case AppConstants.NOTES_LOADED:
       store.notes = assign([], action.notes);

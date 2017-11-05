@@ -7,9 +7,7 @@ import NoteList from "../notes/Notes";
 
 // Method to retrieve state from Stores
 let getAppState = () => {
-  return {
-    notes: AppStore.getNotes()
-  };
+  return AppStore.getState();
 };
 
 export default class App extends React.Component {
@@ -32,11 +30,11 @@ export default class App extends React.Component {
   }
 
   render() {
-    const notes = getAppState().notes;
+    const state = getAppState();
     return (
       <div>
-        <NoteList notes={notes} />
-        <Navbar />
+        <NoteList notes={state.notes} />
+        <Navbar filter={state.filter} />
       </div>
     );
   }

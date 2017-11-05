@@ -67,6 +67,10 @@ const AppActions = {
     Axios.post(config.apiUrl, newNote)
       .then(res => {
         parseResponse(statusCreate, res, "Added new note");
+        Dispatcher.handleViewAction({
+          actionType: AppConstants.APPLY_VISIBILITY_FILTER,
+          tags: ""
+        });
       })
       .catch(function(error) {
         parseError(error);

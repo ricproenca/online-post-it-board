@@ -15,6 +15,10 @@ export default class Navbar extends React.Component {
   // maybe a reset button to clean up input text?
   // maybe a delete all notes button?
   render() {
+    if (this.refs.tagSearchInput) {
+      this.refs.tagSearchInput.value = this.props.filter;
+    }
+
     return (
       <div className="navbar">
         <p className="tags">
