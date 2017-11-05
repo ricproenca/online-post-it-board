@@ -1,7 +1,5 @@
 {
     "port": 3001,
     "maxTitleLength": 120,
-    "maxDescriptionLength": 1000,
-    "maxVisibleTitleLength": 40,
-    "maxVisibleDescriptionLength": 450
+    "maxDescriptionLength": 1000
 }
