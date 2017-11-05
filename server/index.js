@@ -1,6 +1,8 @@
 import http from "http";
 import express from "express";
 import bodyParser from "body-parser";
+import helmet from "helmet";
+import cors from "cors";
 import websocket from "ws";
 import dateFormat from "dateformat";
 import initializeDb from "./db";
@@ -16,23 +18,8 @@ app.set("port", process.env.PORT || config.port);
 // Configure the API to use bodyParser and look for JSON data in the request body
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-// Set our headers to allow CORS with middleware to prevent errors
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET,HEAD,OPTIONS,POST,PUT,DELETE"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
-  );
-  // Remove caching so we get the most recent data
-  res.setHeader("Cache-Control", "no-cache");
-  next();
-});
+app.use(helmet());
+app.use(cors());
 
 console.log("### Online Post-It Board Server ###");
 
