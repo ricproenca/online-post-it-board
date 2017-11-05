@@ -1,4 +1,5 @@
 import resource from "resource-router-middleware";
+import uuidv1 from "uuid/v1";
 
 export default (notes, db, broadcast) =>
   resource({
@@ -24,9 +25,10 @@ export default (notes, db, broadcast) =>
     /** POST / - Create a new entity */
     create({ body }, res) {
       console.log("API request create");
-      body.id = notes.length.toString(36);
+      body.id = uuidv1();
       notes.push(body);
-      res.json(body);
+      res.json(body.id);
+      broadcast(notes);
     },
 
     /** GET /:id - Return a given entity */

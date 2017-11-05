@@ -6,8 +6,7 @@ import AppConstants from "../constants/AppConstants";
 
 let notes = [];
 
-const setVisibilityFilterToNotes = tags => {
-  let newNotes = assign([], notes);
+const setVisibilityFilterToNotes = (newNotes, tags) => {
   if (tags.length) {
     // Iterate all tags and notes
     tags.map((tag, tagIndex) => {
@@ -60,11 +59,12 @@ Dispatcher.register(payload => {
   console.log(`AppStore dispatch action: ${action.actionType}`);
   switch (action.actionType) {
     case AppConstants.NOTES_LOADED:
-      notes = action.notes;
+      notes = assign([], action.notes);
       break;
 
     case AppConstants.APPLY_VISIBILITY_FILTER:
-      setVisibilityFilterToNotes(action.tags);
+      const newNotes = assign([], notes);
+      notes = setVisibilityFilterToNotes(newNotes, action.tags);
       break;
 
     default:

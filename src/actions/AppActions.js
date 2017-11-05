@@ -1,9 +1,12 @@
 import Dispatcher from "../dispatcher/AppDispatcher";
 import AppConstants from "../constants/AppConstants";
 import AppStore from "../stores/AppStore";
+import config from "../config";
+import Axios from "axios";
+
+const status200 = 200;
 
 const newNote = {
-  id: 10,
   title: "New Note",
   description: "New Description",
   visible: true,
@@ -25,10 +28,31 @@ const getTagsInText = text => {
   return matches;
 };
 
+const printError = error => {
+  if (error.response) {
+    // The server responded with a status code that falls out of the range of 2xx
+    console.log(`ApiProvider Response Status: ${error.response.status}`);
+    console.log(`ApiProvider Response Data: ${error.response.data}`);
+    console.log(`ApiProvider Response Headers: ${error.response.headers}`);
+  } else if (error.request) {
+    // The request was made but no response was received
+    console.log(`ApiProvider No Response: ${error.request}`);
+  } else {
+    // Something happened in setting up the request that triggered an Error
+    console.log(`ApiProvider Error: ${error.message}`);
+  }
+  console.log(`ApiProvider config ${error.config}`);
+};
+
+const printUnexpectedResponse = response => {
+  console.log(`Incorrect API response status ${response.status}`);
+  console.log(`Incorrect API response data ${response.data}`);
+};
+
 // TODO: When the backend is ready, please change the actions
 const AppActions = {
   loadNotes(notes) {
-    console.log("AppActions addNote");
+    console.log("AppActions loadNotes");
     Dispatcher.handleViewAction({
       actionType: AppConstants.NOTES_LOADED,
       notes
@@ -36,14 +60,17 @@ const AppActions = {
   },
 
   addNote() {
-    console.log("AppActions addNote");
-    let notes = AppStore.getNotes();
-    notes.push(newNote);
-
-    Dispatcher.handleViewAction({
-      actionType: AppConstants.NOTES_LOADED,
-      notes
-    });
+    Axios.post(config.apiUrl, newNote)
+      .then(res => {
+        if (res.status === status200) {
+          console.log(`Added new note with id ${res.data}`);
+        } else {
+          printUnexpectedResponse(res);
+        }
+      })
+      .catch(function(error) {
+        printError(error);
+      });
   },
 
   filterNotes(searchText) {

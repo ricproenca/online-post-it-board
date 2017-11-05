@@ -1,3 +1,4 @@
+// TODO: Missing validation JSON.parse
 import config from "../config";
 import AppActions from "../actions/AppActions";
 
