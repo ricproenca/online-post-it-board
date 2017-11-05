@@ -1,6 +1,33 @@
 import resource from "resource-router-middleware";
 import uuidv1 from "uuid/v1";
 
+import config from "../config.json";
+
+const getTagsInText = text => {
+  let match;
+  let matches = [];
+  let regexp = /#([^\s]+)/g;
+
+  // Found in all text tags expressions (#tag)
+  // eslint-disable-next-line
+  while ((match = regexp.exec(text)) != null) {
+    if (matches.indexOf(match[0]) === -1) {
+      matches.push(match[0]);
+    }
+  }
+  return matches;
+};
+
+const validateNote = note => {
+  if (
+    note.title.length > config.maxTitleLength ||
+    note.description.length > config.maxDescriptionLength
+  ) {
+    return false;
+  }
+  return true;
+};
+
 export default (notes, db, broadcast) =>
   resource({
     /** Property name to store preloaded entity on `request`. */
@@ -25,36 +52,58 @@ export default (notes, db, broadcast) =>
     /** POST / - Create a new entity */
     create({ body }, res) {
       console.log("API request create");
+
+      if (!validateNote(body)) {
+        res.sendStatus(400);
+        return;
+      }
+
       body.id = uuidv1();
+      body.tags = []
+        .concat(getTagsInText(body.title))
+        .concat(getTagsInText(body.description));
+
       notes.push(body);
-      res.json(body.id);
+      res.sendStatus(204);
       broadcast(notes);
     },
 
     /** GET /:id - Return a given entity */
     read({ note }, res) {
-      console.log("API request read");
+      console.log(`API request read ${note.id}`);
       res.json(note);
       broadcast(notes);
     },
 
     /** PUT /:id - Update a given entity */
     update({ note, body }, res) {
-      console.log("API request update");
+      console.log(`API request update ${note.id}`);
+
+      // TODO: if sent incorrect id
+
+      if (!validateNote(body)) {
+        res.sendStatus(400);
+        return;
+      }
+
       for (let key in body) {
         if (key !== "id") {
           note[key] = body[key];
         }
       }
+
+      body.tags = []
+        .concat(getTagsInText(body.title))
+        .concat(getTagsInText(body.description));
+
       res.sendStatus(204);
       broadcast(notes);
     },
 
     /** DELETE /:id - Delete a given entity */
     delete({ note }, res) {
-      console.log("API request delete", note);
+      console.log(`API request delete ${note.id}`);
       notes.splice(notes.indexOf(note), 1);
-      res.sendStatus(204);
       broadcast(notes);
     }
   });
