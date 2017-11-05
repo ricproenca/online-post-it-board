@@ -8,8 +8,7 @@ import NoteList from "../notes/Notes";
 // Method to retrieve state from Stores
 let getAppState = () => {
   return {
-    notes: AppStore.getNotes(),
-    notifications: []
+    notes: AppStore.getNotes()
   };
 };
 

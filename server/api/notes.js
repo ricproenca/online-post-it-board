@@ -50,8 +50,9 @@ export default (notes, db, broadcast) =>
 
     /** DELETE /:id - Delete a given entity */
     delete({ note }, res) {
-      console.log("API request delete");
+      console.log("API request delete", note);
       notes.splice(notes.indexOf(note), 1);
       res.sendStatus(204);
+      broadcast(notes);
     }
   });
