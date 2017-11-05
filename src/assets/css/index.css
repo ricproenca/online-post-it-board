@@ -76,12 +76,11 @@ ul li .note-inner {
 
 ul li .note-inner .editingTitle {
     font-size: 60%;
-    margin-left: 20px;
 }
 
 ul li .note-inner .editingDescription {
     font-size: 60%;
-    margin-left: 20px;
+    margin-top: 2em;
 }
 
 ul li .note-inner .add {
@@ -271,7 +270,7 @@ ul li .note-inner:focus {
     -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
     -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
     transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
-    height: 30px;
+    height: 26px;
     padding-left: 2px;
     padding-right: 2px;
 }
@@ -294,5 +293,5 @@ ul li .note-inner:focus {
     -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
     -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
     transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
-    margin-left: 10px;
+    padding: 8px;
 }

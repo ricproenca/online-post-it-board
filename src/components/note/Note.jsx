@@ -57,7 +57,7 @@ export default class Note extends React.Component {
           type="text"
           autoFocus={true}
           defaultValue={prop}
-          size="30"
+          size="45"
           maxLength="120"
           required="required"
           onBlur={this.editNote}
@@ -77,8 +77,8 @@ export default class Note extends React.Component {
         </div>
         <textarea
           ref="editDescriptionInput"
-          rows="15"
-          cols="38"
+          rows="22"
+          cols="56"
           className={className}
           type="text"
           autoFocus={true}

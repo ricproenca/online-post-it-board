@@ -11,6 +11,7 @@ let store = {
 
 const getFilteredNotes = (notes, tags) => {
   if (tags.length) {
+    // eslint-disable-next-line
     return notes.filter(note => {
       for (var i = 0; i < note.tags.length; i++) {
         if (tags.indexOf(note.tags[i]) > -1) {
