@@ -20,6 +20,7 @@ export default (notes, db, broadcast) =>
     index({ params }, res) {
       console.log("API request list all");
       res.json(notes);
+      broadcast(notes);
     },
 
     /** POST / - Create a new entity */
@@ -35,6 +36,7 @@ export default (notes, db, broadcast) =>
     read({ note }, res) {
       console.log("API request read");
       res.json(note);
+      broadcast(notes);
     },
 
     /** PUT /:id - Update a given entity */
@@ -46,6 +48,7 @@ export default (notes, db, broadcast) =>
         }
       }
       res.sendStatus(204);
+      broadcast(notes);
     },
 
     /** DELETE /:id - Delete a given entity */

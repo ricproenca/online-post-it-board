@@ -1,12 +1,12 @@
+import Axios from "axios";
 import Dispatcher from "../dispatcher/AppDispatcher";
 import AppConstants from "../constants/AppConstants";
-import AppStore from "../stores/AppStore";
 import config from "../config";
-import Axios from "axios";
 
 // Api expected status codes
 const statusCreate = 200;
 const statusDelete = 204;
+const statusEdit = 204;
 
 const newNote = {
   title: "New Note",
@@ -91,7 +91,7 @@ const AppActions = {
     console.log("AppActions deleteNote");
     Axios.delete(config.apiUrl + noteId)
       .then(res => {
-        parseResponse(statusDelete, res, "Deleted note");
+        parseResponse(statusDelete, res, `Deleted note with id ${noteId}`);
       })
       .catch(function(error) {
         parseError(error);
@@ -100,22 +100,16 @@ const AppActions = {
 
   editNote(noteId, noteTitle, noteDescription) {
     console.log("AppActions editNote", noteId, noteTitle, noteDescription);
-    const notes = AppStore.getNotes();
-
-    const notesFiltered = notes.filter(item => item.id === noteId);
-    if (notesFiltered.length > 1) {
-      console.error(`Found duplicate IDs`);
-      return;
-    }
-
-    const note = notesFiltered[0];
-    note.title = noteTitle;
-    note.description = noteDescription;
-
-    Dispatcher.handleViewAction({
-      actionType: AppConstants.NOTES_LOADED,
-      notes: notes
-    });
+    Axios.put(config.apiUrl + noteId, {
+      title: noteTitle,
+      description: noteDescription
+    })
+      .then(res => {
+        parseResponse(statusEdit, res, `Edited note with id ${noteId}`);
+      })
+      .catch(function(error) {
+        parseError(error);
+      });
   }
 };
 
