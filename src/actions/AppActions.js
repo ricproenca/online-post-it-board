@@ -28,7 +28,7 @@ const getTagsInText = text => {
   return matches;
 };
 
-const printError = error => {
+const parseError = error => {
   if (error.response) {
     // The server responded with a status code that falls out of the range of 2xx
     console.log(`ApiProvider Response Status: ${error.response.status}`);
@@ -39,14 +39,19 @@ const printError = error => {
     console.log(`ApiProvider No Response: ${error.request}`);
   } else {
     // Something happened in setting up the request that triggered an Error
-    console.log(`ApiProvider Error: ${error.message}`);
+    console.log(`ApiProvider Request Error: ${error.message}`);
   }
-  console.log(`ApiProvider config ${error.config}`);
 };
 
-const printUnexpectedResponse = response => {
-  console.log(`Incorrect API response status ${response.status}`);
-  console.log(`Incorrect API response data ${response.data}`);
+const parseResponse = (expectedStatus, response) => {
+  if (response.status === expectedStatus) {
+    // The server responded with the expected status code
+    console.log(`Added new note with id ${response.data}`);
+  } else {
+    // The server responded with an unexpected status code
+    console.log(`Incorrect API response status ${response.status}`);
+    console.log(`Incorrect API response data ${response.data}`);
+  }
 };
 
 // TODO: When the backend is ready, please change the actions
@@ -62,14 +67,10 @@ const AppActions = {
   addNote() {
     Axios.post(config.apiUrl, newNote)
       .then(res => {
-        if (res.status === status200) {
-          console.log(`Added new note with id ${res.data}`);
-        } else {
-          printUnexpectedResponse(res);
-        }
+        parseResponse(status200, res);
       })
       .catch(function(error) {
-        printError(error);
+        parseError(error);
       });
   },
 
