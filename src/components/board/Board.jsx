@@ -2,7 +2,7 @@ import React from "react";
 
 import Note from "../note/Note";
 
-export default class Notes extends React.Component {
+export default class Board extends React.Component {
   constructor(props) {
     super(props);
     this.renderNote = this.renderNote.bind(this);

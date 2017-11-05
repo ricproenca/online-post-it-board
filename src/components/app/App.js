@@ -3,7 +3,7 @@ import WebsocketProvider from "../../providers/websocketProvider";
 import AppStore from "../../stores/AppStore";
 
 import Navbar from "../navbar/Navbar";
-import NoteList from "../notes/Notes";
+import Board from "../board/Board";
 
 // Method to retrieve state from Stores
 let getAppState = () => {
@@ -33,7 +33,7 @@ export default class App extends React.Component {
     const state = getAppState();
     return (
       <div>
-        <NoteList notes={state.notes} />
+        <Board notes={state.notes} />
         <Navbar filter={state.filter} />
       </div>
     );
