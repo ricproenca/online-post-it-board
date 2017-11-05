@@ -4,7 +4,7 @@ import AppConstants from "../constants/AppConstants";
 import config from "../config";
 
 // Api expected status codes
-const statusCreate = 200;
+const statusCreate = 204;
 const statusDelete = 204;
 const statusEdit = 204;
 
@@ -34,7 +34,6 @@ const parseError = error => {
   if (error.response) {
     // The server responded with a status code that falls out of the range of 2xx
     console.log(`API error status: ${error.response.status} `);
-    console.log("API error data:", error.response.data);
     console.log("API error headers:", error.response.headers);
   } else if (error.request) {
     // The request was made but no response was received

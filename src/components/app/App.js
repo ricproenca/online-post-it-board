@@ -35,8 +35,8 @@ export default class App extends React.Component {
     const notes = getAppState().notes;
     return (
       <div>
-        <Navbar />
         <NoteList notes={notes} />
+        <Navbar />
       </div>
     );
   }
