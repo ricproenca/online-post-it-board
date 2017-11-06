@@ -7,7 +7,6 @@ import RateLimit from "express-rate-limit";
 import websocket from "ws";
 import dateFormat from "dateformat";
 import initializeDb from "./db";
-import notes from "./models/notes";
 import config from "./config.json";
 import api from "./api";
 
@@ -21,7 +20,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Enable CORS to allow cross-origin HTTP requests from a different domain
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "http://localhost:8080"]
+  })
+);
 
 // Helmet default config:
 // dnsPrefetchControl: controls browser DNS prefetching
@@ -45,7 +48,9 @@ app.use(
   })
 );
 
+console.log("-----------------------------------");
 console.log("### Online Post-It Board Server ###");
+console.log("-----------------------------------");
 
 // connect to db
 initializeDb(db => {
@@ -54,8 +59,14 @@ initializeDb(db => {
   const server = app.listen(port, () => {
     // eslint-disable-line no-console
     console.log(
-      `${dateFormat(null, "isoUtcDateTime")} - API live on: http://localhost:${port}/api/`
+      `${dateFormat(
+        null,
+        "isoUtcDateTime"
+      )} - API live on: http://localhost:${port}/api/`
     );
+
+    console.log("-----------------------------------");
+    console.log("-----------------------------------");
   });
 
   // start web socket server
@@ -76,19 +87,29 @@ initializeDb(db => {
     };
 
     console.log(
-      `${dateFormat(null, "isoUtcDateTime")} - WS live on: http://localhost:${port}`
+      `${dateFormat(
+        null,
+        "isoUtcDateTime"
+      )} - WS live on: http://localhost:${port}`
     );
 
     wss.on("connection", (ws, req) => {
       console.log(
-        `${dateFormat(null, "isoUtcDateTime")} - WS connection from: ${req.connection.remoteAddress}`
+        `${dateFormat(null, "isoUtcDateTime")} - WS connection from: ${req
+          .connection.remoteAddress}`
       );
-      broadcast(notes);
+
+      db
+        .collection("notes")
+        .find()
+        .toArray(function(err, results) {
+          broadcast(results);
+        });
     });
   }
 
   // api router
-  app.use("/api", api(notes, db, broadcast));
+  app.use("/api", api(db, broadcast));
 });
 
 export default app;
