@@ -5,7 +5,7 @@ import Notes from "./notes";
 export default (notes, db, broadcast) => {
   let api = Router();
 
-  // mount the facets resource
+  // mount the notes resource
   api.use("/notes", Notes(notes, db, broadcast));
 
   // perhaps expose some API metadata at the root
