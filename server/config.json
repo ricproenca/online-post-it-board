@@ -1,5 +1,7 @@
 {
-    "port": 3001,
-    "maxTitleLength": 120,
-    "maxDescriptionLength": 1000
+  "dbUser": "notes",
+  "dbPassword": "notes",
+  "port": 3001,
+  "maxTitleLength": 120,
+  "maxDescriptionLength": 1000
 }
