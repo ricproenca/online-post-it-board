@@ -5,12 +5,7 @@ import Dispatcher from "../dispatcher/AppDispatcher";
 import AppConstants from "../constants/AppConstants";
 
 let store = {
-  notes: [
-    {
-      title: "New Note",
-      description: "New Description"
-    }
-  ],
+  notes: [],
   filter: []
 };
 
