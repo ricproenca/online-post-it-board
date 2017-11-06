@@ -48,7 +48,6 @@ export default class Navbar extends React.Component {
   }
 
   addNote() {
-    console.log("Navbar addNote");
     AppActions.addNote();
   }
 
@@ -60,7 +59,6 @@ export default class Navbar extends React.Component {
   }
 
   filterNotes() {
-    console.log("Navbar filterNotes");
     AppActions.filterNotes(this.refs.tagSearchInput.value);
   }
 }

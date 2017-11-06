@@ -92,14 +92,12 @@ export default class Note extends React.Component {
   }
 
   editTitle() {
-    console.log("Note editTitle");
     this.setState({
       editingTitle: true
     });
   }
 
   editDescription() {
-    console.log("Note editDescription");
     this.setState({
       editingDescription: true
     });
@@ -121,7 +119,6 @@ export default class Note extends React.Component {
   }
 
   editNote() {
-    console.log("Note editNote");
     const noteId = this.props.noteId;
     const noteTitle = this.refs.editTitleInput
       ? this.refs.editTitleInput.value
@@ -140,12 +137,10 @@ export default class Note extends React.Component {
   }
 
   addNote() {
-    console.log("Note addNote");
     AppActions.addNote();
   }
 
   deleteNote() {
-    console.log("Note deleteNote");
     AppActions.deleteNote(this.props.noteId);
   }
 }

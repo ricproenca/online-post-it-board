@@ -19,7 +19,7 @@ const onError = evt => {
 
 export default class WebSocketProvider {
   constructor() {
-    this.websocket = new WebSocket(config.wsUrl, "echo-protocol");
+    this.websocket = new WebSocket(config.wsUrl);
   }
   startListen() {
     this.websocket.onopen = onOpen;

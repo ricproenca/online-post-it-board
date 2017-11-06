@@ -55,7 +55,6 @@ const parseResponse = (expectedStatus, response, msg) => {
 
 const AppActions = {
   loadNotes(notes) {
-    console.log("AppActions loadNotes");
     Dispatcher.handleViewAction({
       actionType: AppConstants.NOTES_LOADED,
       notes
@@ -63,7 +62,6 @@ const AppActions = {
   },
 
   addNote() {
-    console.log("AppActions addNote");
     Axios.post(config.apiUrl, newNote)
       .then(res => {
         parseResponse(statusCreate, res, "Added new note");
@@ -78,9 +76,7 @@ const AppActions = {
   },
 
   filterNotes(searchText) {
-    console.log("AppActions filterNotes", searchText);
     const tags = getTagsInText(searchText);
-    console.log(`Tags found ${tags.length}: ${JSON.stringify(tags)}`);
 
     Dispatcher.handleViewAction({
       actionType: AppConstants.APPLY_VISIBILITY_FILTER,
@@ -89,7 +85,6 @@ const AppActions = {
   },
 
   deleteNote(noteId) {
-    console.log("AppActions deleteNote");
     Axios.delete(config.apiUrl + noteId)
       .then(res => {
         parseResponse(statusDelete, res, `Deleted note with id ${noteId}`);
@@ -100,7 +95,6 @@ const AppActions = {
   },
 
   editNote(noteId, noteTitle, noteDescription) {
-    console.log("AppActions editNote", noteId, noteTitle, noteDescription);
     Axios.put(config.apiUrl + noteId, {
       title: noteTitle,
       description: noteDescription
