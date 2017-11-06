@@ -38,7 +38,6 @@ const websocketPromise = new Promise((resolve, reject) => {
 
 describe("APP ACTIONS", () => {
   // My first test attempt, not yet finished
-  // TODO: only works with DB empty
   it("Add Note", done => {
     websocketPromise.then(storeNotes => {
       expect(storeNotes).toEqual([notesTemplate[0]]);
