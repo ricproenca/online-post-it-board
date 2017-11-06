@@ -35,7 +35,7 @@ const parseError = error => {
     console.log("API error headers:", error.response.headers);
   } else if (error.request) {
     // The request was made but no response was received
-    console.log(`API error no response: ${error.request}`);
+    console.log(`API error no response: ${error}`);
   } else {
     // Something happened in setting up the request that triggered an Error
     console.log(`API request error: ${error.message}`);
@@ -43,6 +43,8 @@ const parseError = error => {
 };
 
 const parseResponse = (expectedStatus, response, msg) => {
+  console.log("----------");
+  console.log(response.status, expectedStatus);
   if (response.status === expectedStatus) {
     // The server responded with the expected status code
     console.log(msg);
@@ -64,6 +66,7 @@ const AppActions = {
   addNote() {
     Axios.post(config.apiUrl, newNote)
       .then(res => {
+        console.log("received", res);
         parseResponse(statusCreate, res, "Added new note");
         Dispatcher.handleViewAction({
           actionType: AppConstants.APPLY_VISIBILITY_FILTER,

@@ -70,15 +70,15 @@ initializeDb(db => {
   });
 
   // start web socket server
-  const wss = new websocket.Server({ server });
+  const ws = new websocket.Server({ server });
 
   let broadcast;
 
-  if (wss) {
+  if (ws) {
     // define broadcast callback
     broadcast = data => {
-      // wss.clients = connected clients
-      wss.clients.forEach(client => {
+      // ws.clients = connected clients
+      ws.clients.forEach(client => {
         client.send(JSON.stringify(data));
         console.log(
           `${dateFormat(null, "isoUtcDateTime")} - WS broadcast to all clients`
@@ -93,10 +93,12 @@ initializeDb(db => {
       )} - WS live on: http://localhost:${port}`
     );
 
-    wss.on("connection", (ws, req) => {
+    ws.on("connection", (ws, req) => {
       console.log(
-        `${dateFormat(null, "isoUtcDateTime")} - WS connection from: ${req
-          .connection.remoteAddress}`
+        `${dateFormat(
+          null,
+          "isoUtcDateTime"
+        )} - WS received a connection request`
       );
 
       db

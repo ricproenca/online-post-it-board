@@ -1,30 +1,47 @@
-import { Server } from "mock-socket";
-
+import Server from "ws";
+import config from "../config.json";
 import AppActions from "./AppActions";
 import AppStore from "../stores/AppStore";
-import WebsocketProvider from "../providers/websocketProvider";
 
 global.WebSocket = Server;
 
 const notesTemplate = [
   {
-    title: "New Note",
-    description: "New Description"
+    title: "New Note #1",
+    description: "New Description  #1"
   },
   {
-    title: "New Note",
-    description: "New Description"
+    title: "New Note #2",
+    description: "New Description #2"
   }
 ];
 
-const wsProvider = new WebsocketProvider();
-wsProvider.startListen();
+let websocket;
 
-describe("APP ACTIONS", function() {
-  it("Add Note", async () => {
+const websocketPromise = new Promise((resolve, reject) => {
+  websocket = new WebSocket(config.wsUrl, "echo-protocol");
+
+  websocket.onopen = evt => {
+    console.log("WebSocket opened!");
+  };
+
+  websocket.onmessage = evt => {
+    console.log("WebSocket onmessage!");
+    resolve(JSON.parse(evt.data));
+  };
+
+  websocket.onerror = evt => {
+    console.log(`WebSocket error: ${JSON.stringify(evt)}`);
+    reject(evt);
+  };
+});
+
+describe("APP ACTIONS", () => {
+  it("Add Note", done => {
+    websocketPromise.then(storeNotes => {
+      expect(storeNotes).toEqual([notesTemplate[0]]);
+      done();
+    });
     AppActions.addNote(notesTemplate[0]);
-
-    const storeNotes = await AppStore.getNotes();
-    expect(storeNotes).toEqual([notesTemplate[0]]);
   });
 });
